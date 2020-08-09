@@ -12,7 +12,8 @@ const logs = require('./api/logs');
 const app = express();
 
 mongoose.connect(process.env.DATABASE_URL, {
-    useNewUrlParser: true
+    useNewUrlParser: true,
+    useUnifiedTopology: true
 })
 
 app.use(morgan('common'));
@@ -21,8 +22,12 @@ app.use(cors({
     origin: process.env.CORS_ORIGIN
 }));
 
+app.use(express.json());
+
 app.get('/', (req, res) => {
-    res.json({message: 'Hello there'
+    console.log('zxc');
+    res.json({
+        message: 'Hello there'
     })
 })
 
@@ -34,5 +39,5 @@ app.use(middlewares.errorHandler)
 const port = process.env.PORT || 1337;
 
 app.listen(port, () => {
-    console.log('listening');
+    console.log('listening ' + port);
 });
